@@ -11,5 +11,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>
 );
-// https://api.themoviedb.org/3/movie/550?api_key=071a2d124997c654d1633ece03b76917
-// 071a2d124997c654d1633ece03b76917 ключ
