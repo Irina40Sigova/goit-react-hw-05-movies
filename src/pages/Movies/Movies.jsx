@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useSearchParams, Link } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 import { getSearchMovies } from 'components/services/fetchApi';
+import { MoviesList } from 'components/MoviesList/MoviesList';
 import { Btn, Input, SearchBox } from './Movies.styled';
-import { FilmList } from 'pages/Home/Home.styled';
 
 const Movies = () => {
   const [films, setFilms] = useState([]);
@@ -64,18 +65,9 @@ const Movies = () => {
         />
         <Btn type="submit"></Btn>
       </SearchBox>
-      <FilmList>
-        {films.map(film => {
-          return (
-            <li key={film.id}>
-              <Link to={`/movies/${film.id}`} state={{ from: location }}>
-                {film.title || film.name}
-              </Link>
-            </li>
-          );
-        })}
-        {isLoading && <div>LOADING ...</div>}
-      </FilmList>
+      <MoviesList films={films} location={location} />
+
+      {isLoading && <div>LOADING ...</div>}
     </>
   );
 };

@@ -7,10 +7,10 @@ import {
   Back,
   Box,
   Info,
-  List,
   Text,
   Score,
   InfoList,
+  List,
 } from './MovieDetails.styled';
 
 const MovieDetails = () => {
@@ -36,18 +36,22 @@ const MovieDetails = () => {
   const score = vote_average * 10;
   const scoreToFixed = score.toFixed(2);
 
+  const poster = poster_path
+    ? `https://image.tmdb.org/t/p/w300${poster_path}`
+    : `http://www.suryalaya.org/images/no_image.jpg`;
+
+  const genresList = genres?.map(({ name }) => name).join(', ');
+
+  const backLinkHref = location.state?.from ?? '/';
+
   return (
     <Container>
-      <Back to={location.state?.from ?? '/'}> ⬅ Go back </Back>
+      <Back to={backLinkHref}> ⬅ Go back </Back>
 
       {isLoading && <div>LOADING ...</div>}
       <Box>
         <img
-          src={
-            poster_path
-              ? `https://image.tmdb.org/t/p/w300${poster_path}`
-              : `http://www.suryalaya.org/images/no_image.jpg`
-          }
+          src={poster}
           width={320}
           height={380}
           loading="lazy"
@@ -59,19 +63,19 @@ const MovieDetails = () => {
           <h3>Overview</h3>
           <Text>{overview} </Text>
           <h3>Genres</h3>
-          <List>
-            {genres &&
-              genres.length &&
-              genres.map(({ id, name }) => <li key={id}>{name}</li>)}
-          </List>
+          <Text>{genresList}</Text>
         </Info>
       </Box>
 
       <Text>Additional information</Text>
       <List>
-        <InfoList to="cast">Cast</InfoList>
+        <InfoList to="cast" state={{ from: backLinkHref }}>
+          Cast
+        </InfoList>
 
-        <InfoList to="reviews">Reviews</InfoList>
+        <InfoList to="reviews" state={{ from: backLinkHref }}>
+          Reviews
+        </InfoList>
       </List>
 
       <Outlet />

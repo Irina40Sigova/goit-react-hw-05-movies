@@ -43,6 +43,3 @@ export {
   getMovieCredits,
   getReviews,
 };
-
-// https://api.themoviedb.org/3/movie/day?api_key=071a2d124997c654d1633ece03b76917
-// 071a2d124997c654d1633ece03b76917 ключ
